@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation = "vertical"
+    android:gravity = "center_vertical"
+    android:paddingLeft="50dip"
+    android:paddingRight="50dip"
+    android:paddingTop = "25dip"
+    android:background = "@drawable/brushedalum"
+    android:weightSum="5"
+    >
+    
+    <ScrollView 
+    	android:layout_width="match_parent"
+   		android:layout_height="wrap_content"
+   		android:background = "@drawable/login_background"
+   		android:layout_weight = "2"
+   		android:scrollbarAlwaysDrawVerticalTrack="true">
+
+        
+        <LinearLayout
+         android:layout_width="match_parent"
+    	 android:layout_height="match_parent" 
+         android:orientation = "vertical"
+         android:paddingLeft="50dip"
+    	 android:paddingRight="50dip"
+          >
+        
+        <EditText
+            android:id = "@+id/newusername"
+            android:layout_width="match_parent"
+    	    android:layout_height="match_parent" 
+    	    android:layout_marginBottom="25dip"
+    	    android:layout_marginTop="25dip"
+            android:hint = "@string/username" 
+            android:gravity = "center"
+            android:layout_weight = "1"/>
+        
+         <EditText
+            android:id = "@+id/newpassword"
+            android:layout_width="match_parent"
+    	    android:layout_height="match_parent" 
+    	    android:password = "true"
+    	    android:layout_marginTop="25dip"   
+            android:hint = "@string/password" 
+            android:gravity = "center"
+            android:layout_weight = "1"/>
+             
+        
+             
+        <EditText 
+            android:id="@+id/newpassconfirm"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom="25dip"
+            android:gravity = "center"
+            android:password = "true"  
+            android:hint = "@string/passcon" 
+            android:layout_weight = "1"
+            />
+        
+        <LinearLayout
+            android:layout_width= "match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity = "center_horizontal"
+            >
+            
+            <EditText 
+              android:id = "@+id/ageinput"
+              android:layout_width = "wrap_content"
+              android:layout_height = "wrap_content"
+              android:hint = "@string/age"
+             />
+            
+           <Spinner 
+        	 android:id="@+id/sexinput"
+        	 android:layout_width="wrap_content"
+        	 android:layout_height="wrap_content"
+        	 android:layout_marginLeft = "30dip"
+        	 android:layout_marginBottom = "25dip"
+        	 android:entries="@array/sex"
+        	 android:entryValues="@array/sex"/>
+            
+            
+        </LinearLayout>
+        
+         
+        
+        <EditText 
+            android:id = "@+id/weightinput"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:hint = "@string/weight"
+            android:layout_marginBottom = "15dip"
+            android:layout_gravity="center_horizontal"/>
+        
+        <LinearLayout
+            android:layout_width= "match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity = "center"
+            android:layout_marginBottom="15dip"
+            >
+           
+        <EditText 
+            android:id="@+id/heightftinput"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:hint="@string/height" />
+        
+        <TextView
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:text = "'"/>
+                
+        <EditText 
+            android:id="@+id/heightinchinput"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:text = "  0  "/>
+        
+        <TextView
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:text = "''"/>
+        
+        </LinearLayout>
+        
+        <EditText 
+            android:id="@+id/weightgoal"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom = "10dip"
+            android:hint = "@string/loss"
+            android:layout_gravity = "center_horizontal"/>
+       
+        
+        <Button 
+             android:background="@drawable/loginbut"
+             android:layout_width = "wrap_content"
+             android:layout_height = "wrap_content"
+             android:layout_marginBottom = "10dip"
+             android:text = "@string/register"
+             android:layout_gravity = "right" 
+             android:onClick="RegisterButton"/>    
+    </LinearLayout> 
+        
+    
+         
+        
+    </ScrollView>
+    
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation = "horizontal" 
+            android:layout_marginLeft = "10dip"
+         	android:layout_marginTop ="-3dip"
+         	android:layout_weight = "1">
+            
+        
+        	<RadioGroup 
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:orientation="horizontal"> 
+        
+            <RadioButton
+                android:id = "@+id/signSel"
+                android:button="@android:color/transparent"
+                android:background="@drawable/logregbutton"
+                android:layout_width = "wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "@string/loginSel"
+                android:checked = "false"
+                android:onClick="psudoTabClick"
+                />
+            
+             <RadioButton
+                android:id = "@+id/regSel"
+                android:button="@android:color/transparent"
+                android:background="@drawable/logregbutton"
+                android:layout_width = "wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "@string/regSel"
+                android:checked = "true"
+                android:onClick="psudoTabClick"
+                />
+             
+            </RadioGroup>
+                
+            
+    </LinearLayout>
+    
+   
+
+</LinearLayout>

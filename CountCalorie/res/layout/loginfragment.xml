@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation = "vertical"
+    android:gravity = "center_vertical"
+    android:paddingLeft="50dip"
+    android:paddingRight="50dip"
+    android:background = "@drawable/brushedalum">
+    
+    <LinearLayout
+         android:layout_width="match_parent"
+    	 android:layout_height="wrap_content" 
+         android:orientation = "vertical"
+         android:paddingLeft="50dip"
+    	 android:paddingRight="50dip"
+         android:background = "@drawable/login_background" >
+        
+        <EditText
+            android:id = "@+id/username"
+            android:layout_width="match_parent"
+    	    android:layout_height="match_parent" 
+    	    android:layout_marginBottom="25dip"
+    	    android:layout_marginTop="25dip"
+            android:hint = "@string/username" 
+            android:gravity = "center"
+            android:layout_weight = "1"/>
+        
+         <EditText
+            android:id = "@+id/password"
+            android:layout_width="match_parent"
+    	    android:layout_height="match_parent" 
+    	    android:password = "true"
+    	    android:layout_marginBottom="25dip"
+            android:hint = "@string/password" 
+            android:gravity = "center"
+            android:layout_weight = "1"/>
+            
+         
+        <Button 
+             android:background="@drawable/loginbut"
+             android:layout_width = "wrap_content"
+             android:layout_height = "wrap_content"
+             android:layout_marginBottom = "10dip"
+             android:text = "@string/loginBut"
+             android:layout_gravity = "right"
+             android:onClick="LOGIN" />    
+             
+        
+    </LinearLayout> 
+    
+    
+     
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation = "horizontal" 
+            android:layout_marginLeft = "10dip"
+         	android:layout_marginTop ="-3dip">
+            
+        
+        	<RadioGroup 
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:orientation="horizontal"> 
+        
+            <RadioButton
+                android:id = "@+id/signSel"
+                android:button="@android:color/transparent"
+                android:background="@drawable/logregbutton"
+                android:layout_width = "wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "@string/loginSel"
+                android:checked = "true"
+                android:onClick="psudoTabClick"
+                />
+            
+             <RadioButton
+                android:id = "@+id/regSel"
+                android:button="@android:color/transparent"
+                android:background="@drawable/logregbutton"
+                android:layout_width = "wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "@string/regSel"
+                android:checked = "false"
+                android:onClick="psudoTabClick"
+                />
+             
+            </RadioGroup>
+                
+            
+    </LinearLayout>
+    
+    
+    
+
+</LinearLayout>
