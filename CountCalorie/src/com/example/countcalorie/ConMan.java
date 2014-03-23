@@ -82,10 +82,16 @@ public class ConMan extends AsyncTask<String, Integer, String>{
 		}
 		
 		
+		if(this.mode == cm.MODE_CHECK){
 		//look at response
-		if(!(responseStr.trim()).equals("nope:")){
-		 Toast mytoast = Toast.makeText(this.caller,"Username Already Taken", Toast.LENGTH_LONG);
-		 mytoast.show();
+			if(!(responseStr.trim()).equals("nope:")){
+				Toast mytoast = Toast.makeText(this.caller,"Username Already Taken", Toast.LENGTH_LONG);
+				mytoast.show();
+				caller.setUserAvailability(0);
+			}
+			else{
+				caller.setUserAvailability(1);
+			}
 		}
 		
         //Log.i("Response", responseStr);

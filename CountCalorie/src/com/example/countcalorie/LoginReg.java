@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 public class LoginReg extends FragmentActivity {
 	FragmentManager fragmentManager;
+	int userNameAvail = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,12 @@ public class LoginReg extends FragmentActivity {
 		 
 		 FragmentTransaction ft = getFragmentManager().beginTransaction();
 		 ft.add(R.id.fragmentContainer, logIn).commit();
+		 
+		 //add listener
+		 EditText username = (EditText) findViewById(R.id.newusername);
+		 CheckUserNameListener cunl = new CheckUserNameListener(this,username);
+		 cunl.addCaller(this);
+		 username.addTextChangedListener(cunl);
 	}
 
 	@Override
@@ -86,6 +93,18 @@ public class LoginReg extends FragmentActivity {
 	}
 	
 	
+	/*RegisterButton(View v) - void
+	 * @Input: View
+	 *  Method for registering new user. 
+	 *     Do error check
+	 *     Check for user availablilty
+	 *     Check password is the same as confirm
+	 *     Get height conversion to inches
+	 *     Calculate BMR
+	 *     Add all information to userInformation object
+	 *     Execute SQL addUser
+	 *     
+	 */
 	public void RegisterButton(View v){
 		//use for checking
 		//uncomment this before launch
@@ -93,17 +112,15 @@ public class LoginReg extends FragmentActivity {
 			return;
 		}*/
 		
-		//Check Username Availability
-		String username = ((EditText) findViewById(R.id.newusername)).getText().toString();
 		
-		Toast mytoast = Toast.makeText(this,username, Toast.LENGTH_LONG);
-		mytoast.show();
-		
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("user",username));
  
         
-		new ConMan(nameValuePairs,ConMode.MODE_CHECK, this).execute();
+		
+        while(userNameAvail==2){}
+        
+        if(userNameAvail ==0){
+        	return;
+        }
 		
 		//convert height
 		EditText eth1 = (EditText) findViewById(R.id.heightftinput);
@@ -121,7 +138,15 @@ public class LoginReg extends FragmentActivity {
 		
 	}
 	
-    //use to error check the input fields
+	
+    /*eroorFreeReg()
+     *
+     * Check through all registration input to validate information, and try to prevent
+     *   injections. If any fail, cancel the registration, and require user to intervene
+     * 
+     * @Return: boolean
+     * 
+     */
 	public boolean errorFreeReg(){
 		EditText et;
 		Toast mytoast;
@@ -192,5 +217,9 @@ public class LoginReg extends FragmentActivity {
 		}
 		
 		return errorFree;
+	}
+	
+	public void setUserAvailability(int level){
+		this.userNameAvail = level;
 	}
 }
