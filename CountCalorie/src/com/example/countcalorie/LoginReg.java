@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class LoginReg extends FragmentActivity {
@@ -86,15 +87,20 @@ public class LoginReg extends FragmentActivity {
 	
 	
 	public void RegisterButton(View v){
-		//Check for errors
-		if(!(errorFreeReg())){
+		//use for checking
+		//uncomment this before launch
+		/*if(!errorFreeReg()){
 			return;
-		}
+		}*/
 		
 		//Check Username Availability
 		String username = ((EditText) findViewById(R.id.newusername)).getText().toString();
+		
+		Toast mytoast = Toast.makeText(this,username, Toast.LENGTH_LONG);
+		mytoast.show();
+		
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("user",username ));
+        nameValuePairs.add(new BasicNameValuePair("user",username));
  
         
 		new ConMan(nameValuePairs,ConMode.MODE_CHECK, this).execute();
@@ -104,21 +110,87 @@ public class LoginReg extends FragmentActivity {
 		EditText eth2 = (EditText) findViewById(R.id.heightinchinput);
 		String height = Double.toString(Converter.convHeight(eth1.getText().toString(), eth2.getText().toString()));
 		Log.i("Height:",height);
-		/*Toast mytoast = Toast.makeText(this,t.getText().toString(), Toast.LENGTH_LONG);
-    	mytoast.show();*/
 		
-		//test usernameTester
-		boolean test = ErrorCheck.checkUsername("memphisroots");
-		Log.i("TestThing:",String.valueOf(test));
+		//
+		
+		
+		
 	}
 	
 	public void LoginButton(View v){
 		
 	}
 	
+    //use to error check the input fields
 	public boolean errorFreeReg(){
-		//Check that username is string
-		String nono = ";:/\\_\'\"";
-		return false;
+		EditText et;
+		Toast mytoast;
+		boolean test;
+		boolean errorFree = true;
+		
+		//test usernameTester
+		et = (EditText) findViewById(R.id.newusername);
+		test = ErrorCheck.checkUsername(et.getText().toString());
+		if(!test){
+		    mytoast = Toast.makeText(this,"Invalid User Name! (Letters and Numbers only)", Toast.LENGTH_LONG);
+			mytoast.show();
+			return test;
+		}
+		
+		//check age
+		et = (EditText) findViewById(R.id.ageinput);
+		test = ErrorCheck.ensureNumber(et.getText().toString());
+		if(!test){
+		    mytoast = Toast.makeText(this,"Invalid Age!", Toast.LENGTH_LONG);
+			mytoast.show();
+			return test;
+		}
+		
+		//check sex
+		Spinner s = (Spinner) findViewById(R.id.sexinput);
+		String val = s.getSelectedItem().toString();
+		if(val.equalsIgnoreCase("sex.")){
+			mytoast = Toast.makeText(this,"Choose a Sex", Toast.LENGTH_LONG);
+			mytoast.show();
+			return false;
+		}
+		
+		//check weight
+		et = (EditText) findViewById(R.id.weightinput);
+		test = ErrorCheck.doubleOkCheck(et.getText().toString());
+		if(!test){
+			mytoast = Toast.makeText(this,"Invalid Weight!", Toast.LENGTH_LONG);
+			mytoast.show();
+			return test;
+		}
+		
+		//check goal
+		et = (EditText) findViewById(R.id.weightgoal);
+		test = ErrorCheck.doubleOkCheck(et.getText().toString());
+		if(!test){
+			mytoast = Toast.makeText(this,"Invalid Loss Goal!", Toast.LENGTH_LONG);
+			mytoast.show();
+			return test;
+		}
+		
+		//check height feet
+		et = (EditText) findViewById(R.id.heightftinput);
+		test = ErrorCheck.ensureNumber(et.getText().toString());
+		if(!test){
+			mytoast = Toast.makeText(this,"Ivalid Height in Feet!", Toast.LENGTH_LONG);
+			mytoast.show();
+			return test;
+		}
+		
+		//check height inches
+		et = (EditText) findViewById(R.id.heightinchinput);
+		test = ErrorCheck.ensureNumber(et.getText().toString().trim());
+		if(!test){
+			mytoast = Toast.makeText(this,"Ivalid Height in Inches!", Toast.LENGTH_LONG);
+			mytoast.show();
+			return test;
+		}
+		
+		return errorFree;
 	}
 }

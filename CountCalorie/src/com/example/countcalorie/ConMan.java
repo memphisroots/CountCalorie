@@ -81,8 +81,14 @@ public class ConMan extends AsyncTask<String, Integer, String>{
 			e.printStackTrace();
 		}
 		
+		
 		//look at response
-        Log.i("Response", responseStr);
+		if(!(responseStr.trim()).equals("nope:")){
+		 Toast mytoast = Toast.makeText(this.caller,"Username Already Taken", Toast.LENGTH_LONG);
+		 mytoast.show();
+		}
+		
+        //Log.i("Response", responseStr);
     	
 	}
 	
