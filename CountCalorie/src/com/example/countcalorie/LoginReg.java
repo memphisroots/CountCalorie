@@ -44,11 +44,7 @@ public class LoginReg extends FragmentActivity {
 		 FragmentTransaction ft = getFragmentManager().beginTransaction();
 		 ft.add(R.id.fragmentContainer, logIn).commit();
 		 
-		 //add listener
-		 EditText username = (EditText) findViewById(R.id.newusername);
-		 CheckUserNameListener cunl = new CheckUserNameListener(this,username);
-		 cunl.addCaller(this);
-		 username.addTextChangedListener(cunl);
+		 
 	}
 
 	@Override
@@ -72,7 +68,7 @@ public class LoginReg extends FragmentActivity {
 				// and add the transaction to the back stack
 				transaction.replace(R.id.fragmentContainer, l);
 				transaction.addToBackStack(null);
-				
+				transaction.commit();
 			
 			
 		}
@@ -84,12 +80,14 @@ public class LoginReg extends FragmentActivity {
 				// and add the transaction to the back stack
 				transaction.replace(R.id.fragmentContainer, r);
 				transaction.addToBackStack(null);
-			
+				transaction.commit();
+				
+				
 			
 		}
 		
 		// Commit the transaction
-		transaction.commit();
+		//transaction.commit();
 	}
 	
 	
