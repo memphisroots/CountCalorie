@@ -82,7 +82,7 @@ public class ConMan extends AsyncTask<String, Integer, String>{
 		}
 		
 		
-		if(this.mode == cm.MODE_CHECK){
+		if(this.mode == ConMode.MODE_CHECK){
 		//look at response
 			if(!(responseStr.trim()).equals("nope:")){
 				Toast mytoast = Toast.makeText(this.caller,"Username Already Taken", Toast.LENGTH_LONG);
@@ -92,6 +92,9 @@ public class ConMan extends AsyncTask<String, Integer, String>{
 			else{
 				caller.setUserAvailability(1);
 			}
+		}
+		else if(this.mode == ConMode.MODE_ADD){
+			Log.i("AddResponse:", responseStr);
 		}
 		
         //Log.i("Response", responseStr);

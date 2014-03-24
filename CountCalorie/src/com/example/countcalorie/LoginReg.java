@@ -25,6 +25,7 @@ import android.widget.Toast;
 public class LoginReg extends FragmentActivity {
 	FragmentManager fragmentManager;
 	int userNameAvail = 2;
+	Toast mytoast;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +63,12 @@ public class LoginReg extends FragmentActivity {
 		
 		if(v.getId() == R.id.signSel){
 			
-				
 				LoginFragment l = new LoginFragment();
 				// Replace whatever is in the fragment_container view with this fragment,
 				// and add the transaction to the back stack
 				transaction.replace(R.id.fragmentContainer, l);
 				transaction.addToBackStack(null);
 				transaction.commit();
-			
-			
 		}
 		
 		if(v.getId() == R.id.regSel){
@@ -81,8 +79,6 @@ public class LoginReg extends FragmentActivity {
 				transaction.replace(R.id.fragmentContainer, r);
 				transaction.addToBackStack(null);
 				transaction.commit();
-				
-				
 			
 		}
 		
@@ -94,40 +90,82 @@ public class LoginReg extends FragmentActivity {
 	/*RegisterButton(View v) - void
 	 * @Input: View
 	 *  Method for registering new user. 
-	 *     Do error check
 	 *     Check for user availablilty
+	 *     Do error check
 	 *     Check password is the same as confirm
-	 *     Get height conversion to inches
 	 *     Calculate BMR
 	 *     Add all information to userInformation object
 	 *     Execute SQL addUser
 	 *     
 	 */
 	public void RegisterButton(View v){
-		//use for checking
-		//uncomment this before launch
-		/*if(!errorFreeReg()){
-			return;
-		}*/
+		userInfo reg;
 		
-		
- 
-        
-		
-        while(userNameAvail==2){}
-        
-        if(userNameAvail ==0){
+		//Rejection cases
+		//1) username not Available
+		if(userNameAvail ==0){
+			mytoast = Toast.makeText(this,"Username Already Taken", Toast.LENGTH_LONG);
+			mytoast.show();
         	return;
         }
+        else if(userNameAvail == 2){
+        	mytoast = Toast.makeText(this,"Username Conflict", Toast.LENGTH_LONG);
+			mytoast.show();
+            return;
+        }
+        
+		String username = ((EditText) findViewById(R.id.newusername)).getText().toString();
+		
+		//Error Check all registration
+		//uncomment this before launch
+		if(!errorFreeReg()){
+			return;
+		}
+		
+        //Check password and confirm are the same
+		String pass = ((EditText) findViewById(R.id.newpassword)).getText().toString();
+		String conf = ((EditText) findViewById(R.id.newpassconfirm)).getText().toString();
+		if(!pass.equals(conf)){
+			mytoast = Toast.makeText(this,"Passwords Don't Match", Toast.LENGTH_LONG);
+			mytoast.show();
+			return;
+		}
+		
+		//Calc BMR
 		
 		//convert height
-		EditText eth1 = (EditText) findViewById(R.id.heightftinput);
-		EditText eth2 = (EditText) findViewById(R.id.heightinchinput);
-		String height = Double.toString(Converter.convHeight(eth1.getText().toString(), eth2.getText().toString()));
-		Log.i("Height:",height);
+		String eth1 = ((EditText) findViewById(R.id.heightftinput)).getText().toString();
+		String eth2 = ((EditText) findViewById(R.id.heightinchinput)).getText().toString();
+		String height = String.valueOf((Converter.convHeight(eth1, eth2)));
 		
-		//
 		
+		//get Sex
+		String sex = ((Spinner) findViewById(R.id.sexinput)).getSelectedItem().toString();
+		String age = ((EditText) findViewById(R.id.ageinput)).getText().toString();
+		String weight = ((EditText) findViewById(R.id.weightinput)).getText().toString();
+		
+		//Get BMR
+		int BMR= 0;
+		
+		if(sex.equals("M")){
+			BMR = Converter.maleBMR(weight, eth1, eth2, age);
+		}
+		else{
+			BMR = Converter.femaleBMR(weight, eth1, eth2, age);
+		}
+		
+		
+		//get goal
+		String getGoal = ((EditText) findViewById(R.id.weightgoal)).getText().toString();
+		String goal = Converter.convGoal(getGoal);
+		
+		
+		//set UserInformation in the userInfo Object
+		reg = new userInfo(username,pass,weight,age,sex,height, goal, String.valueOf(BMR));
+		List<NameValuePair> addUser = reg.getInfoSql();
+		
+		//Push to PHP handler through connection manager (ConMan)
+		new ConMan(addUser,ConMode.MODE_ADD, this).execute();
 		
 		
 	}
@@ -147,7 +185,6 @@ public class LoginReg extends FragmentActivity {
      */
 	public boolean errorFreeReg(){
 		EditText et;
-		Toast mytoast;
 		boolean test;
 		boolean errorFree = true;
 		

@@ -16,7 +16,7 @@ public class Converter {
 	
 	
 	public static int maleBMR(String sweight,String sH1, String sH2,String sage){
-		int weight = Integer.parseInt(sweight); 
+		double weight = Double.parseDouble(sweight); 
 		double height = convHeight(sH1,sH2);
 		int age = Integer.parseInt(sage);
 		
@@ -25,9 +25,9 @@ public class Converter {
 		
 	}
 	
-	public static int femaleBMR(String sweight, String sHeight,String sage){
-		int weight = Integer.parseInt(sweight); 
-		double height = Double.parseDouble(sHeight);
+	public static int femaleBMR(String sweight, String sH1, String sH2,String sage){
+		double weight = Double.parseDouble(sweight); 
+		double height = convHeight(sH1,sH2);
 		int age = Integer.parseInt(sage);
 		
 		return  (int) ((int) FEMALE_BMR_FIRST + (FEMALE_BMR_SECOND*weight) + (FEMALE_BMR_THIRD*height) - (FEMALE_BMR_FOURTH*age));
@@ -35,8 +35,15 @@ public class Converter {
 		
 	}
 	
-	public static double convHeight(String h1, String h2){
+	public static int convHeight(String h1, String h2){
 		
-		return (FT_INCHES*Double.parseDouble(h1)) + Double.parseDouble(h2);
+		return (int) ((int)(FT_INCHES*Double.parseDouble(h1)) + Double.parseDouble(h2));
+	}
+	
+	public static String convGoal(String goal){
+		Double goalCal;
+		goalCal = Double.parseDouble(goal) * 3600;
+		
+		return String.valueOf(goalCal.intValue());
 	}
 }

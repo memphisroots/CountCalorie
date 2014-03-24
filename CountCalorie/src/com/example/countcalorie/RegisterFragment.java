@@ -12,10 +12,10 @@ public class RegisterFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-		View view = inflater.inflate(R.layout.registerfragment, container, false);
+      // Inflate the layout for this fragment
+	  View view = inflater.inflate(R.layout.registerfragment, container, false);
         
-      //add listener for checking availablilty
+      //add listener for checking availability
 	  EditText username = (EditText) view.findViewById(R.id.newusername);
 	  CheckUserNameListener cunl = new CheckUserNameListener(this.getActivity(),username);
 	  cunl.addCaller((LoginReg) this.getActivity());
